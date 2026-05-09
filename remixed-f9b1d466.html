@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPLIT | IAN</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080808;color:#E8E4DC;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;line-height:1.6}
+nav{position:sticky;top:0;z-index:99;background:rgba(8,8,8,.97);border-bottom:1px solid #1E1E1E;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+.ni{display:flex;min-width:max-content;padding:0 12px}
+.t{padding:14px 16px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#666;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;outline:none}
+.t.on{color:#C9A84C;border-bottom-color:#C9A84C}
+.pg{display:none}.pg.on{display:block}
+.hero{padding:48px 20px 36px;text-align:center;border-bottom:1px solid #1E1E1E;position:relative}
+.dn{font-size:9px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#C9A84C;margin-bottom:10px}
+.dt{font-size:clamp(28px,6vw,52px);font-weight:900;font-style:italic;line-height:1;letter-spacing:-1px;margin-bottom:10px}
+.badges{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:14px}
+.badge{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid;border-radius:2px}
+.sec{padding:0 16px 32px;max-width:760px;margin:0 auto}
+.blk{display:flex;align-items:center;gap:10px;padding:22px 0 10px}
+.bd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.bl{font-size:8px;font-weight:700;letter-spacing:4px;text-transform:uppercase}
+.bline{flex:1;height:1px;background:#1E1E1E}
+.ec{border:1px solid #1E1E1E;margin-bottom:2px;overflow:hidden}
+.eh{padding:14px 16px 10px;display:flex;gap:12px;align-items:flex-start}
+.ei{font-size:20px;font-weight:900;font-style:italic;opacity:.25;flex-shrink:0;margin-top:1px}
+.em{flex:1}
+.en{font-size:13px;font-weight:700;letter-spacing:.5px;margin-bottom:4px}
+.ps{display:flex;flex-wrap:wrap;gap:4px}
+.p{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;background:rgba(255,255,255,.04);border:1px solid #1E1E1E;color:#999}
+.ef{padding:0 16px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:400px){.ef{grid-template-columns:1fr}}
+.en2{padding:10px 12px;border:1px solid #1E1E1E}
+.el{font-size:7px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;opacity:.6}
+.et{font-size:11px;color:#888;line-height:1.55}
+.fin{margin:16px 0 0;padding:16px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15)}
+.ft{font-size:8px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9A84C;margin-bottom:10px}
+.fi{display:flex;justify-content:space-between;font-size:11px;color:#888;padding:6px 0;border-bottom:1px solid #1A1A1A}
+.fi:last-child{border-bottom:none}
+.fn{color:#C9A84C;font-weight:700;font-size:10px}
+.rc{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+@media(max-width:500px){.rc{grid-template-columns:1fr}}
+.rcard{padding:20px;background:#111;border:1px solid #1E1E1E}
+.rl{font-size:8px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin-bottom:6px}
+.rv{font-size:12px;color:#AAA;line-height:1.6}
+.ws{display:flex;flex-direction:column;gap:2px;padding:20px}
+.wr{display:grid;grid-template-columns:60px 1fr;gap:8px;align-items:center}
+.wl{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;text-align:right}
+.wb{padding:10px 14px;border:1px solid #1E1E1E;display:flex;align-items:center;justify-content:space-between}
+.wn{font-size:11px;font-weight:700;letter-spacing:1px}
+.wf{font-size:8px;color:#666;letter-spacing:1px;text-transform:uppercase}
+.dots{display:flex;gap:4px}
+.dot{width:8px;height:8px;border-radius:50%}
+.lgnd{display:flex;flex-wrap:wrap;gap:6px;padding:16px;border-bottom:1px solid #1E1E1E}
+.li{display:flex;align-items:center;gap:5px;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#666}
+.ld{width:6px;height:6px;border-radius:50%}
+</style>
+</head>
+<body>
+
+<nav><div class="ni">
+  <button class="t on" onclick="show('ov',this)">Overview</button>
+  <button class="t" onclick="show('ru',this)">Rules</button>
+  <button class="t" onclick="show('a1',this)">A1 · Legs</button>
+  <button class="t" onclick="show('b1',this)">B1 · Back</button>
+  <button class="t" onclick="show('a2',this)">A2 · Shoulders</button>
+  <button class="t" onclick="show('b2',this)">B2 · Chest</button>
+</div></nav>
+
+<!-- OVERVIEW -->
+<div id="ov" class="pg on">
+  <div class="hero">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(201,168,76,.06),transparent);pointer-events:none"></div>
+    <div class="dn">SPLIT | IAN</div>
+    <div class="dt">THE 4×4<br><span style="color:#C9A84C">IAN</span></div>
+    <div style="font-size:11px;color:#666;margin-top:8px;letter-spacing:2px">4 workouts · 4 weeks · 8-week periodization</div>
+  </div>
+  <div class="lgnd">
+    <div class="li"><div class="ld" style="background:#7B5EA7"></div>Legs</div>
+    <div class="li"><div class="ld" style="background:#C9A84C"></div>Shoulders</div>
+    <div class="li"><div class="ld" style="background:#4A8FA8"></div>Biceps</div>
+    <div class="li"><div class="ld" style="background:#4A7C59"></div>Back</div>
+    <div class="li"><div class="ld" style="background:#A84A4A"></div>Chest</div>
+    <div class="li"><div class="ld" style="background:#8A6A3A"></div>Triceps</div>
+    <div class="li"><div class="ld" style="background:#A8627A"></div>Glutes</div>
+  </div>
+  <div class="ws">
+    <div class="wr">
+      <div class="wl">Day 1</div>
+      <div class="wb" style="border-left:3px solid #7B5EA7;background:rgba(123,94,167,.12)">
+        <div><div class="wn" style="color:#7B5EA7">A1 — Workout</div><div class="wf">Legs priority · Shoulders · Biceps</div></div>
+        <div class="dots"><div class="dot" style="background:#7B5EA7"></div><div class="dot" style="background:#C9A84C"></div><div class="dot" style="background:#4A8FA8"></div></div>
+      </div>
+    </div>
+    <div class="wr">
+      <div class="wl">Day 2</div>
+      <div class="wb" style="border-left:3px solid #4A7C59;background:rgba(74,124,89,.12)">
+        <div><div class="wn" style="color:#4A7C59">B1 — Workout</div><div class="wf">Back priority · Chest · Triceps</div></div>
+        <div class="dots"><div class="dot" style="background:#4A7C59"></div><div class="dot" style="background:#A84A4A"></div><div class="dot" style="background:#8A6A3A"></div></div>
+      </div>
+    </div>
+    <div class="wr">
+      <div class="wl">Day 3</div>
+      <div class="wb" style="border-left:3px solid #333;background:rgba(255,255,255,.02)">
+        <div><div class="wn" style="color:#555">Active Rest</div><div class="wf">Light cardio / walking / stretching</div></div>
+      </div>
+    </div>
+    <div class="wr">
+      <div class="wl">Day 4</div>
+      <div class="wb" style="border-left:3px solid #C9A84C;background:rgba(201,168,76,.12)">
+        <div><div class="wn" style="color:#C9A84C">A2 — Workout</div><div class="wf">Shoulders priority · Legs · Biceps</div></div>
+        <div class="dots"><div class="dot" style="background:#C9A84C"></div><div class="dot" style="background:#7B5EA7"></div><div class="dot" style="background:#4A8FA8"></div></div>
+      </div>
+    </div>
+    <div class="wr">
+      <div class="wl">Day 5</div>
+      <div class="wb" style="border-left:3px solid #A84A4A;background:rgba(168,74,74,.12)">
+        <div><div class="wn" style="color:#A84A4A">B2 — Workout</div><div class="wf">Chest priority · Back · Triceps</div></div>
+        <div class="dots"><div class="dot" style="background:#A84A4A"></div><div class="dot" style="background:#4A7C59"></div><div class="dot" style="background:#8A6A3A"></div></div>
+      </div>
+    </div>
+    <div class="wr">
+      <div class="wl">Day 6</div>
+      <div class="wb" style="border-left:3px solid #333;background:rgba(255,255,255,.02)">
+        <div><div class="wn" style="color:#555">Active Rest</div><div class="wf">Light cardio / walking / stretching</div></div>
+      </div>
+    </div>
+    <div class="wr">
+      <div class="wl">Day 7</div>
+      <div class="wb" style="border-left:3px solid rgba(201,168,76,.3);background:rgba(201,168,76,.04)">
+        <div><div class="wn" style="color:#7A6535">Recovery</div><div class="wf">Prepare for next cycle</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 16px 32px">
+    <div style="padding:16px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);font-size:11px;color:#888;line-height:1.7;text-align:center">
+      <span style="color:#C9A84C;font-weight:700;letter-spacing:2px;font-size:9px;display:block;margin-bottom:6px">PERIODIZATION</span>
+      System is designed for an <strong style="color:#C0BBB0">8-week periodization cycle</strong>.<br>
+      Progress every week: <strong style="color:#C0BBB0">+1–2 reps or +3–5% weight</strong>.
+    </div>
+  </div>
+</div>
+
+<!-- RULES -->
+<div id="ru" class="pg">
+  <div class="hero">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(201,168,76,.05),transparent);pointer-events:none"></div>
+    <div class="dn">SPLIT | IAN</div>
+    <div class="dt">General<br><span style="color:#C9A84C">Rules</span></div>
+  </div>
+  <div style="padding:16px;max-width:760px;margin:0 auto">
+    <div class="rc">
+      <div class="rcard"><div class="rl">RIR — Compound</div><div class="rv"><strong style="color:#E8E4DC">1–2 reps in reserve</strong><br>Could do 12 — stop at 10.</div></div>
+      <div class="rcard"><div class="rl">RIR — Isolation</div><div class="rv"><strong style="color:#E8E4DC">Down to 0 RIR</strong><br>Work to full failure.</div></div>
+      <div class="rcard"><div class="rl">Rest Between Sets</div><div class="rv"><strong style="color:#E8E4DC">1–2 minutes</strong><br>By feel.</div></div>
+      <div class="rcard"><div class="rl">Rest Between Exercises</div><div class="rv"><strong style="color:#E8E4DC">2–3 minutes</strong><br>By feel.</div></div>
+      <div class="rcard"><div class="rl">Tempo · Compound</div><div class="rv"><strong style="color:#E8E4DC">Controlled</strong><br>Especially the negative phase.</div></div>
+      <div class="rcard"><div class="rl">Tempo · Isolation</div><div class="rv"><strong style="color:#E8E4DC">2 – 1 – 2</strong><br>Down · Pause · Up.</div></div>
+      <div class="rcard"><div class="rl">Progression</div><div class="rv"><strong style="color:#E8E4DC">Every week</strong><br>+1–2 reps or +3–5% weight.</div></div>
+      <div class="rcard"><div class="rl">Warm-Up</div><div class="rv"><strong style="color:#E8E4DC">5–8 min</strong><br>+ 2–3 warm-up sets on first exercises.</div></div>
+    </div>
+    <div style="margin-top:12px;padding:18px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15)">
+      <div style="font-size:8px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9A84C;margin-bottom:10px">What is RIR?</div>
+      <div style="font-size:12px;color:#888;line-height:1.75"><strong style="color:#C0BBB0">Reps in Reserve</strong> — a method for measuring training intensity.<br>Represents how many reps you could still do before reaching muscular failure.<br><br>Example: RIR = 2 → you did 10 reps but could have done 12.</div>
+    </div>
+    <div style="margin-top:4px;padding:14px 18px;background:#111;border:1px solid #1E1E1E">
+      <div style="font-size:8px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9A84C;margin-bottom:8px">Focus</div>
+      <div style="font-size:12px;color:#888;line-height:1.7">Each day has a priority muscle group, but <strong style="color:#C0BBB0">the whole body gets stimulated</strong>. Antagonists work in pairs — one muscle rests while the opposite is active.</div>
+    </div>
+  </div>
+</div>
+
+<!-- A1 -->
+<div id="a1" class="pg">
+  <div class="hero" style="background:linear-gradient(to bottom,rgba(123,94,167,.08),transparent)">
+    <div class="dn">SPLIT | IAN · Day 1</div>
+    <div class="dt"><span style="color:#7B5EA7">Legs</span><br>Priority</div>
+    <div class="badges">
+      <span class="badge" style="color:#7B5EA7;border-color:rgba(123,94,167,.35);background:rgba(123,94,167,.12)">Legs (priority)</span>
+      <span class="badge" style="color:#C9A84C;border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.12)">Shoulders</span>
+      <span class="badge" style="color:#4A8FA8;border-color:rgba(74,143,168,.35);background:rgba(74,143,168,.12)">Biceps</span>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="blk"><div class="bd" style="background:#7B5EA7"></div><div class="bl" style="color:#7B5EA7">Block 1 · Legs + Shoulders (antagonist)</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #7B5EA7;background:rgba(123,94,167,.12)">
+      <div class="eh"><div class="ei" style="color:#7B5EA7">1A</div><div class="em">
+        <div class="en">Squats</div>
+        <div class="ps"><span class="p">4 × 6–9</span><span class="p">RIR 1–2</span><span class="p">Rest 1–2 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(123,94,167,.35)"><div class="el" style="color:#7B5EA7">Cues</div><div class="et">Tight core, knees track over toes, control depth</div></div>
+        <div class="en2" style="border-color:rgba(123,94,167,.35)"><div class="el" style="color:#7B5EA7">Why</div><div class="et">Maximum mechanical tension → primary driver of growth</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #C9A84C;background:rgba(201,168,76,.12)">
+      <div class="eh"><div class="ei" style="color:#C9A84C">1B</div><div class="em">
+        <div class="en">Dumbbell Shoulder Press</div>
+        <div class="ps"><span class="p">3–4 × 11</span><span class="p">RIR 1–2</span><span class="p">Rest 90 sec</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(201,168,76,.35)"><div class="el" style="color:#C9A84C">Cues</div><div class="et">Don't arch lower back, control eccentric</div></div>
+        <div class="en2" style="border-color:rgba(201,168,76,.35)"><div class="el" style="color:#C9A84C">Why</div><div class="et">Antagonist to legs → maintains density without compromising squat</div></div>
+      </div>
+    </div>
+    <div class="blk"><div class="bd" style="background:#7B5EA7"></div><div class="bl" style="color:#7B5EA7">Block 2 · Leg Isolation + Delts</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #7B5EA7;background:rgba(123,94,167,.12)">
+      <div class="eh"><div class="ei" style="color:#7B5EA7">2A</div><div class="em">
+        <div class="en">Leg Extensions</div>
+        <div class="ps"><span class="p">3 × 11–14</span><span class="p">0–1 RIR</span><span class="p">Rest ~1 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(123,94,167,.35)"><div class="el" style="color:#7B5EA7">Cues</div><div class="et">1 second pause at peak contraction</div></div>
+        <div class="en2" style="border-color:rgba(123,94,167,.35)"><div class="el" style="color:#7B5EA7">Why</div><div class="et">Quad finisher after compound (metabolic stress)</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #C9A84C;background:rgba(201,168,76,.12)">
+      <div class="eh"><div class="ei" style="color:#C9A84C">2B</div><div class="em">
+        <div class="en">Dumbbell Lateral Raises</div>
+        <div class="ps"><span class="p">3 × 11–14</span><span class="p">Rest ~1 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(201,168,76,.35)"><div class="el" style="color:#C9A84C">Cues</div><div class="et">Lead with elbows, don't swing the weight</div></div>
+        <div class="en2" style="border-color:rgba(201,168,76,.35)"><div class="el" style="color:#C9A84C">Why</div><div class="et">Delt balance (front delt already loaded from press)</div></div>
+      </div>
+    </div>
+    <div class="blk"><div class="bd" style="background:#4A8FA8"></div><div class="bl" style="color:#4A8FA8">Block 3 · Hamstrings + Biceps</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #7B5EA7;background:rgba(123,94,167,.12)">
+      <div class="eh"><div class="ei" style="color:#7B5EA7">3A</div><div class="em">
+        <div class="en">Lying Leg Curls</div>
+        <div class="ps"><span class="p">3 × 11–14</span><span class="p">Rest ~1 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(123,94,167,.35)"><div class="el" style="color:#7B5EA7">Cues</div><div class="et">Hips pinned down, no cheating</div></div>
+        <div class="en2" style="border-color:rgba(123,94,167,.35)"><div class="el" style="color:#7B5EA7">Why</div><div class="et">Quad ↔ hamstring balance, knee protection</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #4A8FA8;background:rgba(74,143,168,.12)">
+      <div class="eh"><div class="ei" style="color:#4A8FA8">3B</div><div class="em">
+        <div class="en">Bicep Curl — EZ Bar / Barbell</div>
+        <div class="ps"><span class="p">3–4 × 8–11</span><span class="p">Rest ~1 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(74,143,168,.35)"><div class="el" style="color:#4A8FA8">Cues</div><div class="et">Elbows fixed, control on the way down</div></div>
+        <div class="en2" style="border-color:rgba(74,143,168,.35)"><div class="el" style="color:#4A8FA8">Why</div><div class="et">Small groups trained at the end — don't interfere with compounds</div></div>
+      </div>
+    </div>
+    <div class="fin"><div class="ft">Finisher (optional)</div>
+      <div class="fi"><span>Crunches (or plank 2×max)</span><span class="fn">3×15–20</span></div>
+      <div class="fi"><span>Box Jumps</span><span class="fn">2–3×8</span></div>
+      <div class="fi"><span>Shoulder Rotations (cuff)</span><span class="fn">2×15–20</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- B1 -->
+<div id="b1" class="pg">
+  <div class="hero" style="background:linear-gradient(to bottom,rgba(74,124,89,.08),transparent)">
+    <div class="dn">SPLIT | IAN · Day 2</div>
+    <div class="dt"><span style="color:#4A7C59">Back</span><br>Priority</div>
+    <div class="badges">
+      <span class="badge" style="color:#4A7C59;border-color:rgba(74,124,89,.35);background:rgba(74,124,89,.12)">Back (priority)</span>
+      <span class="badge" style="color:#A84A4A;border-color:rgba(168,74,74,.35);background:rgba(168,74,74,.12)">Chest</span>
+      <span class="badge" style="color:#8A6A3A;border-color:rgba(138,106,58,.35);background:rgba(138,106,58,.12)">Triceps</span>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="blk"><div class="bd" style="background:#4A7C59"></div><div class="bl" style="color:#4A7C59">Block 1 · Back + Chest (antagonist)</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #4A7C59;background:rgba(74,124,89,.12)">
+      <div class="eh"><div class="ei" style="color:#4A7C59">1A</div><div class="em">
+        <div class="en">Pull-Ups</div>
+        <div class="ps"><span class="p">4 × 11</span><span class="p">RIR 0</span><span class="p">Rest 1–2 min</span></div>
+        <div style="font-size:10px;color:#666;font-style:italic;margin-top:4px">weighted / band assisted by level</div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(74,124,89,.35)"><div class="el" style="color:#4A7C59">Why</div><div class="et">Width + control + high neural output</div></div>
+        <div class="en2" style="border-color:rgba(74,124,89,.35)"><div class="el" style="color:#4A7C59">Pairing</div><div class="et">Antagonist to press → balance and training density</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #A84A4A;background:rgba(168,74,74,.12)">
+      <div class="eh"><div class="ei" style="color:#A84A4A">1B</div><div class="em">
+        <div class="en">Flat Barbell Bench Press</div>
+        <div class="ps"><span class="p">4 × 6–10</span><span class="p">Rest 2 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(168,74,74,.35)"><div class="el" style="color:#A84A4A">Why</div><div class="et">Row ↔ press = balance and training density</div></div>
+        <div class="en2" style="border-color:rgba(168,74,74,.35)"><div class="el" style="color:#A84A4A">Effect</div><div class="et">One muscle rests while the opposite recovers</div></div>
+      </div>
+    </div>
+    <div class="blk"><div class="bd" style="background:#4A7C59"></div><div class="bl" style="color:#4A7C59">Block 2 · Back Volume</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #4A7C59;background:rgba(74,124,89,.12)">
+      <div class="eh"><div class="ei" style="color:#4A7C59">2A</div><div class="em">
+        <div class="en">Incline Dumbbell Row</div>
+        <div class="ps"><span class="p">3 × 8–11</span><span class="p">Rest ~1 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(74,124,89,.35)"><div class="el" style="color:#4A7C59">Cues</div><div class="et">Chest on bench, elbows close to body</div></div>
+        <div class="en2" style="border-color:rgba(74,124,89,.35)"><div class="el" style="color:#4A7C59">Why</div><div class="et">Clean mid-back load, less stress on lower back</div></div>
+      </div>
+    </div>
+    <div class="blk"><div class="bd" style="background:#A84A4A"></div><div class="bl" style="color:#A84A4A">Block 3 · Chest + Back Thickness</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #A84A4A;background:rgba(168,74,74,.12)">
+      <div class="eh"><div class="ei" style="color:#A84A4A">3A</div><div class="em">
+        <div class="en">Incline Dumbbell Press</div>
+        <div class="ps"><span class="p">3 × 8–11</span><span class="p">Rest ~1 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(168,74,74,.35)"><div class="el" style="color:#A84A4A">Why</div><div class="et">Upper chest + stability. Same bench — easy transition</div></div>
+        <div class="en2" style="border-color:rgba(168,74,74,.35)"><div class="el" style="color:#A84A4A">Angle</div><div class="et">Different load vector vs flat press</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #4A7C59;background:rgba(74,124,89,.12)">
+      <div class="eh"><div class="ei" style="color:#4A7C59">3B</div><div class="em">
+        <div class="en">Close-Grip Cable Row</div>
+        <div class="ps"><span class="p">3 × 8–11</span><span class="p">Rest ~1 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(74,124,89,.35)"><div class="el" style="color:#4A7C59">Why</div><div class="et">Back thickness — additional volume for a large group</div></div>
+        <div class="en2" style="border-color:rgba(74,124,89,.35)"><div class="el" style="color:#4A7C59">Focus</div><div class="et">Mid-back, different grip — different stimulus</div></div>
+      </div>
+    </div>
+    <div class="blk"><div class="bd" style="background:#8A6A3A"></div><div class="bl" style="color:#8A6A3A">Block 4 · Triceps (finisher)</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #8A6A3A;background:rgba(138,106,58,.12)">
+      <div class="eh"><div class="ei" style="color:#8A6A3A">4</div><div class="em">
+        <div class="en">Overhead Tricep Extension — Low Cable</div>
+        <div class="ps"><span class="p">4 × 11–14</span><span class="p">Rest ~1 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(138,106,58,.35)"><div class="el" style="color:#8A6A3A">Why</div><div class="et">Great angle → final tricep finisher</div></div>
+        <div class="en2" style="border-color:rgba(138,106,58,.35)"><div class="el" style="color:#8A6A3A">Position</div><div class="et">Overhead — maximum stretch on long head</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A2 -->
+<div id="a2" class="pg">
+  <div class="hero" style="background:linear-gradient(to bottom,rgba(201,168,76,.08),transparent)">
+    <div class="dn">SPLIT | IAN · Day 4</div>
+    <div class="dt"><span style="color:#C9A84C">Shoulders</span><br>Priority</div>
+    <div class="badges">
+      <span class="badge" style="color:#C9A84C;border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.12)">Shoulders (priority)</span>
+      <span class="badge" style="color:#7B5EA7;border-color:rgba(123,94,167,.35);background:rgba(123,94,167,.12)">Legs</span>
+      <span class="badge" style="color:#A8627A;border-color:rgba(168,98,122,.35);background:rgba(168,98,122,.12)">Glutes</span>
+      <span class="badge" style="color:#4A8FA8;border-color:rgba(74,143,168,.35);background:rgba(74,143,168,.12)">Biceps</span>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="blk"><div class="bd" style="background:#7B5EA7"></div><div class="bl" style="color:#7B5EA7">Block 1 · Legs + Shoulders (antagonist)</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #7B5EA7;background:rgba(123,94,167,.12)">
+      <div class="eh"><div class="ei" style="color:#7B5EA7">1A</div><div class="em">
+        <div class="en">Leg Press</div>
+        <div class="ps"><span class="p">3 × 16</span><span class="p">RIR 0–1</span><span class="p">Rest 1–2 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(123,94,167,.35)"><div class="el" style="color:#7B5EA7">Cues</div><div class="et">Full range of motion, control the knees</div></div>
+        <div class="en2" style="border-color:rgba(123,94,167,.35)"><div class="el" style="color:#7B5EA7">Why</div><div class="et">More volume with less CNS demand (vs squat)</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #C9A84C;background:rgba(201,168,76,.12)">
+      <div class="eh"><div class="ei" style="color:#C9A84C">1B</div><div class="em">
+        <div class="en">Machine Shoulder Press</div>
+        <div class="ps"><span class="p">3 × 11</span><span class="p">RIR 1–2</span><span class="p">Rest 1–2 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(201,168,76,.35)"><div class="el" style="color:#C9A84C">Why</div><div class="et">Machine is more stable — allows more reps vs last week</div></div>
+        <div class="en2" style="border-color:rgba(201,168,76,.35)"><div class="el" style="color:#C9A84C">Effect</div><div class="et">Stability and control → quality volume</div></div>
+      </div>
+    </div>
+    <div class="blk"><div class="bd" style="background:#7B5EA7"></div><div class="bl" style="color:#7B5EA7">Block 2 · Leg Volume + Cable Delts</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #7B5EA7;background:rgba(123,94,167,.12)">
+      <div class="eh"><div class="ei" style="color:#7B5EA7">2A</div><div class="em">
+        <div class="en">Lunges (stationary / walking)</div>
+        <div class="ps"><span class="p">2 × 20 / leg</span><span class="p">Rest 2+ min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(123,94,167,.35)"><div class="el" style="color:#7B5EA7">Cues</div><div class="et">Long enough stride, stable torso</div></div>
+        <div class="en2" style="border-color:rgba(123,94,167,.35)"><div class="el" style="color:#7B5EA7">Why</div><div class="et">Multi-joint movement → balance, glutes, coordination</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #C9A84C;background:rgba(201,168,76,.12)">
+      <div class="eh"><div class="ei" style="color:#C9A84C">2B</div><div class="em">
+        <div class="en">Cable Lateral + Rear Raises (alternating)</div>
+        <div class="ps"><span class="p">3 × 10/10 + 10/10</span><span class="p">Rest ~1 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(201,168,76,.35)"><div class="el" style="color:#C9A84C">Why</div><div class="et">More constant tension vs dumbbells</div></div>
+        <div class="en2" style="border-color:rgba(201,168,76,.35)"><div class="el" style="color:#C9A84C">Benefit</div><div class="et">Safe isolation — rear and lateral delt</div></div>
+      </div>
+    </div>
+    <div class="blk"><div class="bd" style="background:#A8627A"></div><div class="bl" style="color:#A8627A">Block 3 · Glutes + Biceps (finisher)</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #A8627A;background:rgba(168,98,122,.12)">
+      <div class="eh"><div class="ei" style="color:#A8627A">3A</div><div class="em">
+        <div class="en">Glute Bridge / Hip Thrust</div>
+        <div class="ps"><span class="p">3 × 11–14</span><span class="p">Rest 2+ min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(168,98,122,.35)"><div class="el" style="color:#A8627A">Cues</div><div class="et">1 sec pause at top, chin tucked</div></div>
+        <div class="en2" style="border-color:rgba(168,98,122,.35)"><div class="el" style="color:#A8627A">Why</div><div class="et">Glute focus (often under-loaded during squats)</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #4A8FA8;background:rgba(74,143,168,.12)">
+      <div class="eh"><div class="ei" style="color:#4A8FA8">3B</div><div class="em">
+        <div class="en">Dumbbell Bicep Curl (drop set)</div>
+        <div class="ps"><span class="p">5 × 16→9</span><span class="p">By feel</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(74,143,168,.35)"><div class="el" style="color:#4A8FA8">Why 5 sets</div><div class="et">Only bicep exercise of the day — maximum pump</div></div>
+        <div class="en2" style="border-color:rgba(74,143,168,.35)"><div class="el" style="color:#4A8FA8">Method</div><div class="et">Increase weight + decrease reps each set</div></div>
+      </div>
+    </div>
+    <div class="fin"><div class="ft">Finisher (optional)</div>
+      <div class="fi"><span>Crunches (or plank 2×max)</span><span class="fn">3×15–20</span></div>
+      <div class="fi"><span>Box Jumps</span><span class="fn">2–3×8</span></div>
+      <div class="fi"><span>Shoulder Rotations (cuff)</span><span class="fn">2×15–20</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- B2 -->
+<div id="b2" class="pg">
+  <div class="hero" style="background:linear-gradient(to bottom,rgba(168,74,74,.08),transparent)">
+    <div class="dn">SPLIT | IAN · Day 5</div>
+    <div class="dt"><span style="color:#A84A4A">Chest</span><br>Priority</div>
+    <div class="badges">
+      <span class="badge" style="color:#A84A4A;border-color:rgba(168,74,74,.35);background:rgba(168,74,74,.12)">Chest (priority)</span>
+      <span class="badge" style="color:#4A7C59;border-color:rgba(74,124,89,.35);background:rgba(74,124,89,.12)">Back</span>
+      <span class="badge" style="color:#8A6A3A;border-color:rgba(138,106,58,.35);background:rgba(138,106,58,.12)">Triceps</span>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="blk"><div class="bd" style="background:#A84A4A"></div><div class="bl" style="color:#A84A4A">Block 1 · Chest + Back (antagonist)</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #A84A4A;background:rgba(168,74,74,.12)">
+      <div class="eh"><div class="ei" style="color:#A84A4A">1A</div><div class="em">
+        <div class="en">Chest Press Machine (flat)</div>
+        <div class="ps"><span class="p">4 × 9–11</span><span class="p">Rest 1–2 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(168,74,74,.35)"><div class="el" style="color:#A84A4A">Why</div><div class="et">Row ↔ press = balance and training density</div></div>
+        <div class="en2" style="border-color:rgba(168,74,74,.35)"><div class="el" style="color:#A84A4A">Effect</div><div class="et">One muscle rests while the opposite recovers</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #4A7C59;background:rgba(74,124,89,.12)">
+      <div class="eh"><div class="ei" style="color:#4A7C59">1B</div><div class="em">
+        <div class="en">Lat Pulldown</div>
+        <div class="ps"><span class="p">4 × 9–11</span><span class="p">RIR 1–2</span><span class="p">Rest 2–3 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(74,124,89,.35)"><div class="el" style="color:#4A7C59">Why</div><div class="et">Width + control + high neural output</div></div>
+        <div class="en2" style="border-color:rgba(74,124,89,.35)"><div class="el" style="color:#4A7C59">Benefit</div><div class="et">Great variation to feel and squeeze the back muscles</div></div>
+      </div>
+    </div>
+    <div class="blk"><div class="bd" style="background:#A84A4A"></div><div class="bl" style="color:#A84A4A">Block 2 · Chest Angle + Back Thickness</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #A84A4A;background:rgba(168,74,74,.12)">
+      <div class="eh"><div class="ei" style="color:#A84A4A">2A</div><div class="em">
+        <div class="en">Incline Close-Grip Dumbbell Press</div>
+        <div class="ps"><span class="p">3 × 9–11</span><span class="p">Rest 1–2 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(168,74,74,.35)"><div class="el" style="color:#A84A4A">Why</div><div class="et">Upper chest + stability + different angle</div></div>
+        <div class="en2" style="border-color:rgba(168,74,74,.35)"><div class="el" style="color:#A84A4A">Difference</div><div class="et">Free weight — different load character vs machine</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #4A7C59;background:rgba(74,124,89,.12)">
+      <div class="eh"><div class="ei" style="color:#4A7C59">2B</div><div class="em">
+        <div class="en">Incline Dumbbell Row</div>
+        <div class="ps"><span class="p">4 × 9–11</span><span class="p">Rest 1–2 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(74,124,89,.35)"><div class="el" style="color:#4A7C59">Cues</div><div class="et">Chest on bench, no cheating</div></div>
+        <div class="en2" style="border-color:rgba(74,124,89,.35)"><div class="el" style="color:#4A7C59">Why</div><div class="et">Clean mid-back load, less stress on lower back</div></div>
+      </div>
+    </div>
+    <div class="blk"><div class="bd" style="background:#A84A4A"></div><div class="bl" style="color:#A84A4A">Block 3 · Chest Finisher + Triceps</div><div class="bline"></div></div>
+    <div class="ec" style="border-left:3px solid #A84A4A;background:rgba(168,74,74,.12)">
+      <div class="eh"><div class="ei" style="color:#A84A4A">3A</div><div class="em">
+        <div class="en">Pec Deck Fly Machine</div>
+        <div class="ps"><span class="p">5 × 16→9</span><span class="p">Rest 1–2 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(168,74,74,.35)"><div class="el" style="color:#A84A4A">Why 5 sets</div><div class="et">Only stretch-focused chest exercise — hits all fascia</div></div>
+        <div class="en2" style="border-color:rgba(168,74,74,.35)"><div class="el" style="color:#A84A4A">Method</div><div class="et">Increase weight + decrease reps each set</div></div>
+      </div>
+    </div>
+    <div class="ec" style="border-left:3px solid #8A6A3A;background:rgba(138,106,58,.12)">
+      <div class="eh"><div class="ei" style="color:#8A6A3A">3B</div><div class="em">
+        <div class="en">Single-Arm Overhead Cable Extension</div>
+        <div class="ps"><span class="p">3 × 9–11</span><span class="p">Rest 1–2 min</span></div>
+      </div></div>
+      <div class="ef">
+        <div class="en2" style="border-color:rgba(138,106,58,.35)"><div class="el" style="color:#8A6A3A">Why</div><div class="et">Already worked in presses → final concentrated finisher</div></div>
+        <div class="en2" style="border-color:rgba(138,106,58,.35)"><div class="el" style="color:#8A6A3A">Angle</div><div class="et">Completely different from previous variations</div></div>
+      </div>
+    </div>
+    <div style="margin-top:24px;padding:16px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.2);text-align:center">
+      <div style="font-size:8px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9A84C;margin-bottom:6px">Periodization</div>
+      <div style="font-size:12px;color:#888;line-height:1.7">System is designed for an <strong style="color:#C0BBB0">8-week periodization cycle</strong>.<br>Every cycle — a new level.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.t').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  el.classList.add('on');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
